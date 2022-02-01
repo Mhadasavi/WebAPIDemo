@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPIDemo.Data;
+using WebAPIDemo.Repository.IRepository;
 
 namespace WebAPIDemo
 {
@@ -28,6 +29,7 @@ namespace WebAPIDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(option=>option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<INationalParkRepository, NationalParkRepository>();
             services.AddControllers();
         }
 

@@ -2,50 +2,62 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPIDemo.Data;
 using WebAPIDemo.Models;
 
 namespace WebAPIDemo.Repository.IRepository
 {
     public class NationalParkRepository : INationalParkRepository
     {
-        public bool CreateNationalPark(NationalPark natioanlPark)
+        private readonly ApplicationDbContext _db;
+        public NationalParkRepository(ApplicationDbContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
+        }
+        public bool CreateNationalPark(NationalPark nationalPark)
+        {
+            _db.NationalParks.Add(nationalPark);
+            return save();
         }
 
         public bool DeleteNationalPark(NationalPark nationalPark)
         {
-            throw new NotImplementedException();
+            _db.NationalParks.Remove(nationalPark);
+            return save();
         }
 
-        public NationalPark GetNationalPark()
+        public NationalPark GetNationalPark(int NationalParkId)
         {
-            throw new NotImplementedException();
+            return _db.NationalParks.FirstOrDefault(i => i.Id == NationalParkId);
+
         }
 
         public ICollection<NationalPark> GetNationalParks()
         {
-            throw new NotImplementedException();
+            return _db.NationalParks.OrderBy(i => i.Name).ToList();
         }
 
         public bool IsNationalParkExist(string name)
         {
-            throw new NotImplementedException();
+            bool nationalPark = _db.NationalParks.Any(o => o.Name.ToLower().Trim() == name.ToLower().Trim());
+            return nationalPark;
         }
 
         public bool IsNationalParkExist(int id)
         {
-            throw new NotImplementedException();
+            bool nationalPark = _db.NationalParks.Any(i => i.Id == id);
+            return nationalPark;
         }
 
         public bool save()
         {
-            throw new NotImplementedException();
+            return _db.SaveChanges() >= 0 ? true : false;
         }
 
         public bool UpdateNationalPark(NationalPark nationalPark)
         {
-            throw new NotImplementedException();
+            _db.NationalParks.Update(nationalPark);
+            return save();
         }
     }
 }

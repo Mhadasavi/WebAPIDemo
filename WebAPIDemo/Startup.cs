@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPIDemo.Data;
+using WebAPIDemo.Mappers;
 using WebAPIDemo.Repository.IRepository;
 
 namespace WebAPIDemo
@@ -30,6 +31,7 @@ namespace WebAPIDemo
         {
             services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<INationalParkRepository, NationalParkRepository>();
+            services.AddAutoMapper(typeof(ApiMapping));
             services.AddControllers();
         }
 

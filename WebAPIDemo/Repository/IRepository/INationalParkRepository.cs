@@ -8,11 +8,11 @@ namespace WebAPIDemo.Repository.IRepository
 {
     public interface INationalParkRepository
     {
-        bool CreateNationalPark(NationalPark natioanlPark);
-        bool DeleteNationalPark(NationalPark nationalPark);
-        bool UpdateNationalPark(NationalPark nationalPark);
-        ICollection<NationalPark> GetNationalParks();
-        NationalPark GetNationalPark(int NationalParkId);
+        bool CreateNationalPark(NationalParkDto natioanlPark);
+        bool DeleteNationalPark(NationalParkDto nationalPark);
+        bool UpdateNationalPark(NationalParkDto nationalPark);
+        ICollection<NationalParkDto> GetNationalParks();
+        NationalParkDto GetNationalPark(int NationalParkId);
         bool IsNationalParkExist(string name);
         bool IsNationalParkExist(int id);
         bool save();

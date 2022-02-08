@@ -10,7 +10,7 @@ namespace WebAPIDemo.Repository.IRepository
     {
         bool CreateNationalPark(NationalPark natioanlPark);
         bool DeleteNationalPark(NationalPark nationalPark);
-        bool UpdateNationalPark(NationalPark nationalPark);
+        bool UpdateNationalPark(UpdateNationalPark nationalPark);
         ICollection<NationalPark> GetNationalParks();
         NationalPark GetNationalPark(int NationalParkId);
         bool IsNationalParkExist(string name);

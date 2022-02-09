@@ -56,7 +56,7 @@ namespace WebAPIDemo.Repository.IRepository
 
         public bool UpdateNationalPark(UpdateNationalPark nationalPark)
         {
-            _db.NationalParks.Update(nationalPark);
+           // _db.NationalParks.Update(nationalPark);
             return save();
         }
     }

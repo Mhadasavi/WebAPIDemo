@@ -37,7 +37,7 @@ namespace WebAPIDemo.Controllers
             return Ok(nationalParkList);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "GetNationalPark")]
         public IActionResult GetNationalPark(int id)
         {
             var nationalPark = _nationalParkRepository.GetNationalPark(id);
@@ -60,27 +60,27 @@ namespace WebAPIDemo.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (_nationalParkRepository.IsNationalParkExist(nationalPark.Name))
-            {
-                ModelState.AddModelError("", "National Park Exists");
-                return StatusCode(404, ModelState);
-            }
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (!_nationalParkRepository.CreateNationalPark(_mapper.Map<NationalPark>(nationalPark)))
+            if (_nationalParkRepository.IsNationalParkExist(nationalPark.Name))
+            {
+                ModelState.AddModelError("", "National Park Already Exists");
+                return StatusCode(404, ModelState);
+            }
+
+            var nationalParkObj = _mapper.Map<NationalPark>(nationalPark);
+            if (!_nationalParkRepository.CreateNationalPark(nationalParkObj))
             {
                 ModelState.AddModelError("", $"Error while saving the record {nationalPark.Name}");
                 return StatusCode(500, ModelState);
             }
-            return Ok();
+            return CreatedAtRoute("GetNationalPark", new { id = nationalParkObj.Id }, nationalParkObj);
         }
     }
 
 }
 
 
-  

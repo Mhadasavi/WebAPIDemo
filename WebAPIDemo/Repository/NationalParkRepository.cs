@@ -54,9 +54,9 @@ namespace WebAPIDemo.Repository.IRepository
             return _db.SaveChanges() >= 0 ? true : false;
         }
 
-        public bool UpdateNationalPark(UpdateNationalPark nationalPark)
+        public bool UpdateNationalPark(NationalPark nationalPark)
         {
-           // _db.NationalParks.Update(nationalPark);
+            _db.NationalParks.Update(nationalPark);
             return save();
         }
     }

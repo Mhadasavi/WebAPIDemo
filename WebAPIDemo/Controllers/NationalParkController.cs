@@ -79,6 +79,47 @@ namespace WebAPIDemo.Controllers
             }
             return CreatedAtRoute("GetNationalPark", new { id = nationalParkObj.Id }, nationalParkObj);
         }
+        [HttpPatch("{nationalParkId:int}", Name = "UpdateNationalPark")]
+        public IActionResult UpdateNationalPark(int nationalParkId, [FromBody] NationalParkDto nationalPark)
+        {
+            if (nationalPark == null && nationalParkId != nationalPark.Id)
+            {
+                return BadRequest(ModelState);
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (_nationalParkRepository.IsNationalParkExist(nationalPark.Name))
+            {
+                ModelState.AddModelError("", "National Park Already Exists");
+                return StatusCode(404, ModelState);
+            }
+            var nationalParkObj = _mapper.Map<NationalPark>(nationalPark);
+            if (!_nationalParkRepository.UpdateNationalPark(nationalParkObj))
+            {
+                ModelState.AddModelError("", $"Error while updating the record {nationalPark.Name}");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
+        [HttpDelete("{nationalParkId:int}", Name = "DeleteNationalPark")]
+        public IActionResult DeleteNationalPark(int nationalParkId)
+        {
+            if (!_nationalParkRepository.IsNationalParkExist(nationalParkId))
+            {
+                return NotFound();
+            }
+            var nationalParkObj = _nationalParkRepository.GetNationalPark(nationalParkId);
+
+            if (!_nationalParkRepository.DeleteNationalPark(nationalParkObj))
+            {
+                ModelState.AddModelError("", $"Error bs smj jao {nationalParkObj.Name}");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
     }
 
 }

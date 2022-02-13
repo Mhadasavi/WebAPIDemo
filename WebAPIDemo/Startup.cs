@@ -32,6 +32,10 @@ namespace WebAPIDemo
             services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<INationalParkRepository, NationalParkRepository>();
             services.AddAutoMapper(typeof(ApiMapping));
+            services.AddSwaggerGen(options=>options.SwaggerDoc("DemoApi",new Microsoft.OpenApi.Models.OpenApiInfo(){
+                  Title="Test Web Api",
+                  Version="1"
+            }));
             services.AddControllers();
         }
 
@@ -44,7 +48,11 @@ namespace WebAPIDemo
             }
 
             app.UseHttpsRedirection();
-
+            app.UseSwagger();
+            app.UseSwaggerUI(options=> {
+                options.SwaggerEndpoint("/swagger/DemoApi/swagger.json", "Demo Api");
+                options.RoutePrefix = "";
+            });
             app.UseRouting();
 
             app.UseAuthorization();

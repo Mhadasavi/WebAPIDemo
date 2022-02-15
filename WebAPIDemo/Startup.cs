@@ -9,7 +9,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using WebAPIDemo.Data;
 using WebAPIDemo.Mappers;
@@ -32,10 +34,16 @@ namespace WebAPIDemo
             services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<INationalParkRepository, NationalParkRepository>();
             services.AddAutoMapper(typeof(ApiMapping));
-            services.AddSwaggerGen(options=>options.SwaggerDoc("DemoApi",new Microsoft.OpenApi.Models.OpenApiInfo(){
-                  Title="Test Web Api",
-                  Version="1"
-            }));
+            services.AddSwaggerGen(options=> {
+                options.SwaggerDoc("DemoApi", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "Test Web Api",
+                    Version = "1"
+                });
+                var XmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommentFullPath = Path.Combine(AppContext.BaseDirectory, XmlCommentFile);
+                options.IncludeXmlComments(xmlCommentFullPath);
+                });
             services.AddControllers();
         }
 

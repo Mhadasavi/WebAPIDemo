@@ -23,7 +23,10 @@ namespace WebAPIDemo.Controllers
             _mapper = mapper;
             _nationalParkRepository = nationalParkRepository;
         }
-
+        /// <summary>
+        /// Generates list of national parks
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetAllNationalParks()
         {
@@ -36,7 +39,11 @@ namespace WebAPIDemo.Controllers
 
             return Ok(nationalParkList);
         }
-
+        /// <summary>
+        /// Generate National Park based on ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id:int}", Name = "GetNationalPark")]
         public IActionResult GetNationalPark(int id)
         {

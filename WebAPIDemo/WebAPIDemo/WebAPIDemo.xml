@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebAPIDemo</name>
+    </assembly>
+    <members>
+        <member name="M:WebAPIDemo.Controllers.NationalParkController.GetAllNationalParks">
+            <summary>
+            Generates list of national parks
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPIDemo.Controllers.NationalParkController.GetNationalPark(System.Int32)">
+            <summary>
+            Generate National Park based on ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

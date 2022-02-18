@@ -17,6 +17,6 @@ namespace WebAPIDemo.Models.Dtos
         public DifficultyType Difficulty { get; set; }
         [Required]
         public int NationalParkId { get; set; }
-        public NationalPark NationalPark { get; set; }
+        public NationalParkDto NationalPark { get; set; }
     }
 }

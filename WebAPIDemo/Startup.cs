@@ -33,8 +33,10 @@ namespace WebAPIDemo
         {
             services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<INationalParkRepository, NationalParkRepository>();
+            services.AddScoped<ITrailsRepository, TrailsRepository>();
             services.AddAutoMapper(typeof(ApiMapping));
-            services.AddSwaggerGen(options=> {
+            services.AddSwaggerGen(options =>
+            {
                 options.SwaggerDoc("DemoApi", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
                     Title = "Test Web Api",
@@ -43,7 +45,7 @@ namespace WebAPIDemo
                 var XmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlCommentFullPath = Path.Combine(AppContext.BaseDirectory, XmlCommentFile);
                 options.IncludeXmlComments(xmlCommentFullPath);
-                });
+            });
             services.AddControllers();
         }
 
@@ -57,7 +59,8 @@ namespace WebAPIDemo
 
             app.UseHttpsRedirection();
             app.UseSwagger();
-            app.UseSwaggerUI(options=> {
+            app.UseSwaggerUI(options =>
+            {
                 options.SwaggerEndpoint("/swagger/DemoApi/swagger.json", "Demo Api");
                 options.RoutePrefix = "";
             });

@@ -68,7 +68,7 @@ namespace WebAPIDemo.Controllers
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(TrailsDto))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult CreateTrails([FromBody] TrailsDto trails)
+        public IActionResult CreateTrails([FromBody] TrailsCreateDto trails)
         {
             // var mapper=_mapper.Map<Trails>(trails);
             if (trails == null)
@@ -100,7 +100,7 @@ namespace WebAPIDemo.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult UpdateTrails(int trailsId, [FromBody] TrailsDto trails)
+        public IActionResult UpdateTrails(int trailsId, [FromBody] TrailsUpdateDto trails)
         {
             if (trails == null && trailsId != trails.Id)
             {

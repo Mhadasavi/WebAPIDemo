@@ -8,11 +8,14 @@ using WebAPIDemo.Models.Dtos;
 
 namespace WebAPIDemo.Mappers
 {
-    public class ApiMapping:Profile
+    public class ApiMapping : Profile
     {
         public ApiMapping()
         {
             CreateMap<NationalPark, NationalParkDto>().ReverseMap();
+            CreateMap<Trails, TrailsDto>().ReverseMap();
+            CreateMap<Trails, TrailsCreateDto>().ReverseMap();
+            CreateMap<Trails, TrailsUpdateDto>().ReverseMap();
         }
     }
 }

@@ -17,5 +17,18 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPIDemo.Controllers.TrailsController.GetAllTrails">
+            <summary>
+            Generates list of Trails
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPIDemo.Controllers.TrailsController.GetTrails(System.Int32)">
+            <summary>
+            Generate Trails based on ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

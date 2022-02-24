@@ -29,13 +29,13 @@ namespace WebAPIDemo.Repository.IRepository
 
         public Trails GetTrails(int TrailsId)
         {
-            return _db.Trails.FirstOrDefault(i => i.Id == TrailsId);
+            return _db.Trails.Include(c => c.NationalPark).FirstOrDefault(i => i.Id == TrailsId);
 
         }
 
         public ICollection<Trails> GetTrails()
         {
-            return _db.Trails.OrderBy(i => i.Name).ToList();
+            return _db.Trails.Include(c => c.NationalPark).OrderBy(i => i.Name).ToList();
         }
 
         public bool IsTrailsExist(string name)

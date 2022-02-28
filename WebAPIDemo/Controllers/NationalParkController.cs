@@ -13,6 +13,7 @@ namespace WebAPIDemo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "NationalPark")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class NationalParkController : Controller
     {

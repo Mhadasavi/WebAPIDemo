@@ -37,11 +37,17 @@ namespace WebAPIDemo
             services.AddAutoMapper(typeof(ApiMapping));
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("DemoApi", new Microsoft.OpenApi.Models.OpenApiInfo()
+                options.SwaggerDoc("NationalPark", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
-                    Title = "Test Web Api",
+                    Title = "National Park",
                     Version = "1"
                 });
+                options.SwaggerDoc("Trails", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "Trails",
+                    Version = "2"
+                });
+
                 var XmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlCommentFullPath = Path.Combine(AppContext.BaseDirectory, XmlCommentFile);
                 options.IncludeXmlComments(xmlCommentFullPath);
@@ -61,7 +67,8 @@ namespace WebAPIDemo
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/DemoApi/swagger.json", "Demo Api");
+                options.SwaggerEndpoint("/swagger/NationalPark/swagger.json", "Demo Api 1");
+                options.SwaggerEndpoint("/swagger/Trails/swagger.json", "Demo Api 2");
                 options.RoutePrefix = "";
             });
             app.UseRouting();

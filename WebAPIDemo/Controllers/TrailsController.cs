@@ -13,6 +13,7 @@ namespace WebAPIDemo.Controllers
 {
     [Route("api/Trails")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "Trails")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class TrailsController : Controller
     {

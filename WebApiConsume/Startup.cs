@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApiConsume.Repository;
+using WebApiConsume.Repository.IRepository;
 
 namespace WebApiConsume
 {
@@ -23,7 +25,10 @@ namespace WebApiConsume
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddScoped<INationalParkRepository, NationalParkRepository>();
+            services.AddScoped<ITrailsRepository, TrailsRepository>();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddHttpClient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

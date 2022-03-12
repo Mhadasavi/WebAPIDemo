@@ -2,7 +2,7 @@
 
 namespace WebApiConsume.Repository.IRepository
 {
-    interface ITrailsRepository : IRepository<Trails>
+    public interface ITrailsRepository : IRepository<Trails>
     {
     }
 }

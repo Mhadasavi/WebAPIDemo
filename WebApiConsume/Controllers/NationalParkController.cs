@@ -19,6 +19,23 @@ namespace WebApiConsume.Controllers
         {
             return View(new NationalPark() { });
         }
+        public async Task<IActionResult> Upsert(int? id)
+        {
+            NationalPark nationalPark = new NationalPark();
+            if (id == null)
+            {
+                return View(nationalPark);
+            }
+            nationalPark = await _nationalParkRepository.GetAsyn(SD.NationalParkPath, id.GetValueOrDefault());
+            if(nationalPark == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View(nationalPark);
+            }
+        }
 
         public async Task<IActionResult> GetAllNationalPark()
         {

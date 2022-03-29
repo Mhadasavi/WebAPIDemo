@@ -80,5 +80,16 @@ namespace WebApiConsume.Controllers
         {
             return Json(new { data = await _nationalParkRepository.GetAllAsync(SD.NationalParkPath) });
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var status = await _nationalParkRepository.DeleteAsync(SD.NationalParkPath, id);
+            if (status)
+            {
+                return Json(new { success = true, message = "Delete Successful" });
+            }
+            return Json(new { success = false, message = "Delete not Successfule" });
+        }
     }
 }

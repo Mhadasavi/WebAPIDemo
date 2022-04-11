@@ -6,21 +6,32 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiConsume.Models;
+using WebApiConsume.Models.ViewModel;
+using WebApiConsume.Repository.IRepository;
 
 namespace WebApiConsume.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly INationalParkRepository _nationalParkRepository;
+        private readonly ITrailsRepository _trailsRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, INationalParkRepository nationalParkRepository, ITrailsRepository trailsRepository)
         {
             _logger = logger;
+            _nationalParkRepository = nationalParkRepository;
+            _trailsRepository = trailsRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IndexVM indexVM = new IndexVM()
+            {
+                TrailsList = await _trailsRepository.GetAllAsync(SD.TrailsPath),
+                NationalParksList = await _nationalParkRepository.GetAllAsync(SD.NationalParkPath)
+            };
+            return View(indexVM);
         }
 
         public IActionResult Privacy()

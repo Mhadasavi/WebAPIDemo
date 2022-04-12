@@ -15,7 +15,7 @@ namespace WebAPIDemo.Controllers
     [ApiController]
     [ApiExplorerSettings(GroupName = "Trails")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class TrailsController : Controller
+    public class TrailsController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly ITrailsRepository _trailsRepository;

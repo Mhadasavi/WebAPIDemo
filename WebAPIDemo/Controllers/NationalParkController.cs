@@ -15,7 +15,7 @@ namespace WebAPIDemo.Controllers
     [ApiController]
     [ApiExplorerSettings(GroupName = "NationalPark")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class NationalParkController : Controller
+    public class NationalParkController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly INationalParkRepository _nationalParkRepository;

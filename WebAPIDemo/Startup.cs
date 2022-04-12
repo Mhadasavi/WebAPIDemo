@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using WebAPIDemo.Data;
 using WebAPIDemo.Mappers;
+using WebAPIDemo.Repository;
 using WebAPIDemo.Repository.IRepository;
 
 namespace WebAPIDemo
@@ -33,7 +34,8 @@ namespace WebAPIDemo
         {
             services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<INationalParkRepository, NationalParkRepository>();
-            services.AddScoped<ITrailsRepository, TrailsRepository>(); 
+            services.AddScoped<ITrailsRepository, TrailsRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(typeof(ApiMapping));
             services.AddSwaggerGen(options =>
             {

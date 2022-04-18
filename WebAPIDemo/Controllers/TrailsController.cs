@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ using WebAPIDemo.Repository.IRepository;
 
 namespace WebAPIDemo.Controllers
 {
+    [Authorize]
     [Route("api/Trails")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "Trails")]
@@ -32,6 +34,7 @@ namespace WebAPIDemo.Controllers
         [HttpGet]
         [ProducesResponseType(201, Type = typeof(List<TrailsDto>))]
         [ProducesResponseType(404)]
+        [Authorize(Roles ="Admin")]
         public IActionResult GetAllTrails()
         {
             var trails = _trailsRepository.GetTrails();

@@ -38,26 +38,42 @@ namespace WebAPIDemo.Repository
             {
                 Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.id.ToString())
+                    new Claim(ClaimTypes.Name, user.id.ToString()),
+                    new Claim(ClaimTypes.Role,user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            var token=jwtTokenHandler.CreateToken(tokenDescriptor);
-            user.Token=jwtTokenHandler.WriteToken(token);
-
+            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+            user.Token = jwtTokenHandler.WriteToken(token);
+            user.Password = "";
             return user;
         }
 
 
         public bool isUserExist(string username)
         {
-            throw new NotImplementedException();
+            var user = _applicationDbContext.Users.SingleOrDefault(x => x.Username == username);
+            if (user == null)
+            {
+                return false;
+            }
+            return true;
+
         }
 
         public User Register(string username, string password)
         {
-            throw new NotImplementedException();
+            User user = new User()
+            {
+                Username = username,
+                Password = password,
+                Role="Admin"
+            };
+            _applicationDbContext.Users.Add(user);
+            _applicationDbContext.SaveChanges();
+            user.Password = "";
+            return user;
         }
     }
 }
